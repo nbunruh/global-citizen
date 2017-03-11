@@ -1,0 +1,46 @@
+/* Classes */
+.glyphicon-globe {
+	font-size: 21px;
+}
+
+.glyphicon-search {
+	font-size: 10px;
+	padding-left: 5px;
+}
+
+.slideshow {
+	background-color: lightgray;
+	text-align: center;
+}
+
+.container {
+	border: thin black solid;
+}
+
+/* ID's */
+
+#search {
+	margin-right: 10px;
+}
+
+input[type=text] {
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 70%;
+}
+
+h3 {
+	text-align: center;
+}
