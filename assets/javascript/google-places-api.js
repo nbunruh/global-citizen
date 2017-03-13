@@ -1,20 +1,17 @@
 var APP = (function(app){
   var mapView = app.mapView = {}; 
 
-  var placeSearch, autocomplete;
-  var componentForm = {
-    street_number: 'short_name',
-    route: 'long_name',
-    locality: 'long_name',
-    administrative_area_level_1: 'short_name',
-    country: 'long_name',
-    postal_code: 'short_name'
-  };
-  var database = firebase.database();
-  var lat;
-  var lng;
-  var map;
-  var infoWindow;
+  var autocomplete;
+  // var componentForm = {
+  //   street_number: 'short_name',
+  //   route: 'long_name',
+  //   locality: 'long_name',
+  //   administrative_area_level_1: 'short_name',
+  //   country: 'long_name',
+  //   postal_code: 'short_name'
+  // };
+  var database = firebase.database(); // User favorite places???
+  var lat, lng, map;
   var service;
 
   mapView.initAutocomplete = function() {
@@ -28,23 +25,27 @@ var APP = (function(app){
     // When the user selects an address from the dropdown, populate the address
     // fields in the form.
     autocomplete.addListener('place_changed', getAddress);
-  }
+
+    //At first show San Diego Map
+    initMap(32.715738, -117.1610838);
+
+  };
 
   function getAddress() {
     var place = autocomplete.getPlace().geometry.location;
     console.log(place.lat(), place.lng());
     initMap(place.lat(), place.lng());
-    lat = place.lat();
-    lng = place.lng();
     // getPlaces(place.lat()+ "," + place.lng());
+
+
 
   }
 
   function initMap(lat, lng) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat,
-        lng
+        lat: lat,
+        lng: lng
       },
       zoom: 13,
       styles: [{
@@ -215,15 +216,18 @@ var APP = (function(app){
       ]
     });
 
-    infoWindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
 
     // The idle event is a debounced event, so we can query & listen without
     // throwing too many requests at the server.
-    map.addListener('idle', performSearch);
+    map.addListener('idle', function () {
+      performSearch(lat, lng);
+    });
   }
 
-  function performSearch() {
+  function performSearch(lat, lng) {
+
+    app.clearPlaceList();
     // var request = {
     //   bounds: map.getBounds(),
     //   radius: 10000,
@@ -237,75 +241,49 @@ var APP = (function(app){
     };
     // service.radarSearch(request, callback);
     // service.radarSearch(request, callback);
-    service.textSearch(request, callback);
+    service.textSearch(request, afterSearch);
 
   }
 
-  function callback(results, status) {
+  function afterSearch(results, status) {
     console.log(results);
-
-    results.forEach((place) => {
-      // console.log(place.photos[0].getUrl());
+    var tenResults = results.slice(0, 10);
+    tenResults.forEach(function(place, idx) {
       const placeData = {
         name: place.name,
         address: place.formatted_address,
-        photo: place.photos[0].getUrl({
-          'maxWidth': 100,
-          'maxHeight': 100
-        }),
+        photo: place.photos ? place.photos[0].getUrl({
+          'maxWidth': 80,
+          'maxHeight': 80
+        }) : 'assets/images/default100.jpg',
         rating: place.rating,
         // opening_hours: place.opening_hours,
         icon: place.icon,
         id: place.id,
-        types: place.types
+        types: place.types,
+        idx: idx
       };
-      $('#place-list').append(
-        $('<div class="meaid-leaf">').append(
-          $('<a href="#">').append(
-            $('<img class="media-object">').attr('src', placeData.photo)
-          )
-        )
-      ).append(
-        $('<div class="media-body">').append(
-          $('<h4 class="media-heading">').text(placeData.name)
-        ).append(
-          $('<p>').text(place.address)
-        )
-      )
+
+      app.renderPlaceList(placeData);
+      app.addMarker(place, idx, map, service);
+
 
     });
-    if (status !== google.maps.places.PlacesServiceStatus.OK) {
-      console.error(status);
-      return;
-    }
-    for (var i = 0, result; result = results[i]; i++) {
-      addMarker(result);
-    }
+    // if (status !== google.maps.places.PlacesServiceStatus.OK) {
+    //   console.error(status);
+    //   return;
+    // }
+    // for (var i = 0, result; result = results[i]; i++) {
+    //   app.addMarker(result, map);
+    // }
   }
 
-  function addMarker(place) {
-    var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location,
-      icon: {
-        url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
-        anchor: new google.maps.Point(10, 10),
-        scaledSize: new google.maps.Size(10, 17)
-      }
-    });
-
-    google.maps.event.addListener(marker, 'click', function () {
-      service.getDetails(place, function (result, status) {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          console.error(status);
-          return;
-        }
-        infoWindow.setContent(result.name);
-        infoWindow.open(map, marker);
-        
-      });
-    });
-  }
+/** TODO:
+ * 1. map center point
+ * 2. getDetails
+ * 3. when user click marker or media-object, modal function call
+ *
+ */
 
   return app;
 
