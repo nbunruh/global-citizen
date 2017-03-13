@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Global Citizens</title>
 	<meta charset="utf-8">
@@ -7,43 +8,66 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 	<div class="container">
-      <h1 class="text-center"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></h1>
-    <div class="slideshow">
-    <!--CSS slideshow will go here-->
-      <h1>Slideshow</h1>
-    </div>
-	<form>
-		<input type="text" id="search" placeholder="Enter a location..."><button type="button" class="btn btn-primary">Search<span class="glyphicon glyphicon-search"></span></button>
-	</form>
-	<div class="row">
-      <div class="col-sm-12" id="site-info">
-        <br>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Welcome to the Global Community</strong></h3>
-          </div>
-          <!--Website/Project description can go here-->
-          <div class="panel-body">
-          	<p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
-          	<p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
-          </div>
-       </div>
-    </div>
-          
-    <div class="col-sm-12" id="map">
-	  <br>
-	    <div class="panel panel-primary">
-	      <div class="panel-body">
-	      	<p class="text-center"><strong>Google Maps API</strong></p>
-	      </div>
-	    </div>
-	</div>
-
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="assets/javascript/js.js"></script>
+		<h1 class="text-center"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></h1>
+		<div class="slideshow">
+			<!--CSS slideshow will go here-->
+			<h1>Slideshow</h1>
+		</div>
+		<div class="row">
+			<div class="col-sm-12" id="site-info">
+				<br>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>Welcome to the Global Community</strong></h3>
+					</div>
+					<!--Website/Project description can go here-->
+					<div class="panel-body">
+						<p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+							quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
+							deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+							asperiores repellat."</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="locationField" class="form-group">
+					<input class="form-control" id="autocomplete" placeholder="Enter a location" type="text">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div style="height: 600px">
+				<div id="map" style="height: 600px;border: 1px solid orange"></div>
+			</div>
+		</div>
+		<div class="row" id="place-list">
+			
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8",
+				authDomain: "global-citizen.firebaseapp.com",
+				databaseURL: "https://global-citizen.firebaseio.com",
+				storageBucket: "global-citizen.appspot.com",
+				messagingSenderId: "367570053327"
+			};
+			firebase.initializeApp(config);
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8&libraries=places&callback=APP.mapView.initAutocomplete"
+		  async defer></script>
+		<script src="assets/javascript/google-places-api.js"></script>
+		<script src="assets/javascript/app.js"></script>
 </body>
+
 </html>
