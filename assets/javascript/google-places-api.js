@@ -11,8 +11,6 @@ var APP = (function(app){
   //   postal_code: 'short_name'
   // };
   var database = firebase.database(); // User favorite places???
-  var lat, lng, map;
-  var service;
 
   mapView.initAutocomplete = function() {
     // Create the autocomplete object, restricting the search to geographical
@@ -42,7 +40,7 @@ var APP = (function(app){
   }
 
   function initMap(lat, lng) {
-    map = new google.maps.Map(document.getElementById('map'), {
+    app.map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: lat,
         lng: lng
@@ -216,11 +214,11 @@ var APP = (function(app){
       ]
     });
 
-    service = new google.maps.places.PlacesService(map);
+    app.service = new google.maps.places.PlacesService(app.map);
 
     // The idle event is a debounced event, so we can query & listen without
     // throwing too many requests at the server.
-    map.addListener('idle', function () {
+    app.map.addListener('idle', function () {
       performSearch(lat, lng);
     });
   }
@@ -241,7 +239,7 @@ var APP = (function(app){
     };
     // service.radarSearch(request, callback);
     // service.radarSearch(request, callback);
-    service.textSearch(request, afterSearch);
+    app.service.textSearch(request, afterSearch);
 
   }
 
@@ -259,13 +257,13 @@ var APP = (function(app){
         rating: place.rating,
         // opening_hours: place.opening_hours,
         icon: place.icon,
-        id: place.id,
+        place_id: place.place_id,
         types: place.types,
         idx: idx
       };
 
       app.renderPlaceList(placeData);
-      app.addMarker(place, idx, map, service);
+      app.addMarker(place, idx);
 
 
     });

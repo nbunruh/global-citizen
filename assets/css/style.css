@@ -23,6 +23,10 @@
 	margin-right: 10px;
 }
 
+.place-title {
+	cursor: pointer;
+	color: #337ab7;
+}
 /*input[type=text] {*/
     /*width: 200px;*/
     /*box-sizing: border-box;*/
