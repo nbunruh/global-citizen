@@ -56,7 +56,7 @@ var APP = (function (app) {
         }
         infoWindow.setContent(result.name);
         infoWindow.open(app.map, marker);
-
+        showDetails(place.place_id);
       });
     });
   }
