@@ -31,6 +31,7 @@ var APP = (function(app){
 
   function getAddress() {
     var place = autocomplete.getPlace().geometry.location;
+    console.log(place);
     console.log(place.lat(), place.lng());
     initMap(place.lat(), place.lng());
     // getPlaces(place.lat()+ "," + place.lng());
@@ -220,6 +221,7 @@ var APP = (function(app){
     // throwing too many requests at the server.
     app.map.addListener('idle', function () {
       performSearch(lat, lng);
+      eventSearch(lat, lng);
     });
   }
 
