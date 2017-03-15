@@ -221,7 +221,9 @@ var APP = (function(app){
     // throwing too many requests at the server.
     app.map.addListener('idle', function () {
       performSearch(lat, lng);
-      eventSearch(lat, lng);
+
+      app.evenApiCaller(lat, lng);
+
     });
   }
 

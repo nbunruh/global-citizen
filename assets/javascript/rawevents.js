@@ -1,22 +1,29 @@
 /**
  * Created by hanifa on 3/14/17.
  */
-function EventManager(){
-    this.eventType = "Concerts";
-    this.eventLocation = "San Diego";
+// function EventManager(eventLocation) {
+//     this.eventType = "Concerts";
+//     this.eventLocation = eventLocation;//"San Diego";
+// }
 
-    EventManager.prototype.evenApiCaller = function() {
-        var queryURL = "http://eventful.com/json/events/search?q=Concerts&location=san+Diego&api_key=9p7B44XR8Qvc3jDK";
+var APP = function(app) {
+    app.evenApiCaller = function(lat, lng) {
+        var queryURL = "http://eventful.com/json/events/search?";
 
         $.ajax({
             method: "GET",
             url: queryURL,
             dataType: 'jsonp',
-            crossOrigin: true
+            crossOrigin: true,
+            data: {
+                // q: 'Concerts',
+                location: lat + "," + lng,
+                api_key: '9p7B44XR8Qvc3jDK'
+            }
 
         }).done(function (response) {
-
             var data = response.events.tabular.events;
+            console.log(data);
 
             var text1 = data[0].title;
             var text1a = data[0].rf_start_time;
@@ -61,5 +68,10 @@ function EventManager(){
                 .append(moadlArea3);
 
         })
-    }
-}
+    };
+
+    return app;
+
+
+
+}(APP || {});
