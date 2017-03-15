@@ -8,39 +8,19 @@
 	padding-left: 5px;
 }
 
-img.mySlides {
-	display:none;
-	filter: brightness(50%);
-}
-
-.w3-left, .w3-right, .w3-badge {
-	cursor:pointer
-}
-
-.w3-badge {
-	height:13px;
-	width:13px;
-	padding: 5px !important;
-	margin-right: 5px !important;
+.slideshow {
+	background-color: lightgray;
+	text-align: center;
 }
 
 .container {
 	border: thin black solid;
 }
 
-.map-wrapper {
-	height: 600px;
-}
-
 /* ID's */
 
-#loc-input {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 220px;
-    z-index: 1;
-    display: inline;
+#search {
+	margin-right: 10px;
 }
 
 .place-title {
@@ -72,7 +52,9 @@ input {
 h3 {
 	text-align: center;
 }
-
+.map-wrapper {
+	height: 600px;
+}
 #map {
 	height: 600px;
 	border: 1px solid #337ab7;

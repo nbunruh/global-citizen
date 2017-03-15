@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 var APP = (function(app){
   var mapView = app.mapView = {}; 
 
+=======
+var APP = (function (app) {
+
+  var placeAndEvents = app.placeAndEvents = {};
+>>>>>>> master
   var autocomplete;
   // var componentForm = {
   //   street_number: 'short_name',
@@ -11,8 +17,19 @@ var APP = (function(app){
   //   postal_code: 'short_name'
   // };
   var database = firebase.database(); // User favorite places???
+<<<<<<< HEAD
 
   mapView.initAutocomplete = function() {
+=======
+  var selectedLocation = {
+    lat: 32.715738,
+    lng: -117.1610838
+  };
+  var selectedTypeForGooglePlace = 'night_club'; 
+
+
+  function initAutocomplete() {
+>>>>>>> master
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -25,25 +42,45 @@ var APP = (function(app){
     autocomplete.addListener('place_changed', getAddress);
 
     //At first show San Diego Map
+<<<<<<< HEAD
     initMap(32.715738, -117.1610838);
+=======
+    initMap(selectedLocation);
+>>>>>>> master
 
   };
 
   function getAddress() {
     var place = autocomplete.getPlace().geometry.location;
     console.log(place.lat(), place.lng());
+<<<<<<< HEAD
     initMap(place.lat(), place.lng());
     // getPlaces(place.lat()+ "," + place.lng());
+=======
+    selectedLocation = {
+      lat: place.lat(),
+      lng: place.lng()
+    };
+    initMap();
+>>>>>>> master
 
 
 
   }
 
+<<<<<<< HEAD
   function initMap(lat, lng) {
     app.map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: lat,
         lng: lng
+=======
+  function initMap() {
+    app.map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: selectedLocation.lat,
+        lng: selectedLocation.lng
+>>>>>>> master
       },
       zoom: 13,
       styles: [{
@@ -219,6 +256,7 @@ var APP = (function(app){
     // The idle event is a debounced event, so we can query & listen without
     // throwing too many requests at the server.
     app.map.addListener('idle', function () {
+<<<<<<< HEAD
       performSearch(lat, lng);
     });
   }
@@ -226,6 +264,19 @@ var APP = (function(app){
   function performSearch(lat, lng) {
 
     app.clearPlaceList();
+=======
+      performSearch();
+
+      app.evenApiCaller(selectedLocation.lat, selectedLocation.lng);
+
+    });
+  }
+
+  function performSearch(type=selectedTypeForGooglePlace) {
+    //save type into selectedTypeForGooglePlace, this is prepareing for future performSearch function calls when map changes
+    selectedTypeForGooglePlace = type;
+    app.clearPlaceListAndMarkers();
+>>>>>>> master
     // var request = {
     //   bounds: map.getBounds(),
     //   radius: 10000,
@@ -233,9 +284,15 @@ var APP = (function(app){
     // };
     var request = {
       query: "best places",
+<<<<<<< HEAD
       location: new google.maps.LatLng(lat, lng),
       radius: 30000,
       type: "museum"
+=======
+      location: new google.maps.LatLng(selectedLocation.lat, selectedLocation.lng),
+      radius: 30000,
+      type: type
+>>>>>>> master
     };
     // service.radarSearch(request, callback);
     // service.radarSearch(request, callback);
@@ -246,7 +303,11 @@ var APP = (function(app){
   function afterSearch(results, status) {
     console.log(results);
     var tenResults = results.slice(0, 10);
+<<<<<<< HEAD
     tenResults.forEach(function(place, idx) {
+=======
+    tenResults.forEach(function (place, idx) {
+>>>>>>> master
       const placeData = {
         name: place.name,
         address: place.formatted_address,
@@ -276,12 +337,25 @@ var APP = (function(app){
     // }
   }
 
+<<<<<<< HEAD
 /** TODO:
  * 1. map center point
  * 2. getDetails
  * 3. when user click marker or media-object, modal function call
  *
  */
+=======
+  /** TODO:
+   * 1. map center point
+   * 2. getDetails
+   * 3. when user click marker or media-object, modal function call
+   *
+   */
+  app.placeAndEvents.initAutocomplete = initAutocomplete;
+  app.placeAndEvents.initMap = initMap;
+  app.placeAndEvents.performSearch = performSearch;
+
+>>>>>>> master
 
   return app;
 
