@@ -1,6 +1,6 @@
-var APP = (function(app){
-  var mapView = app.mapView = {}; 
+var APP = (function (app) {
 
+  var placeAndEvents = app.placeAndEvents = {};
   var autocomplete;
   // var componentForm = {
   //   street_number: 'short_name',
@@ -11,8 +11,14 @@ var APP = (function(app){
   //   postal_code: 'short_name'
   // };
   var database = firebase.database(); // User favorite places???
+  var selectedLocation = {
+    lat: 32.715738,
+    lng: -117.1610838
+  };
+  var selectedTypeForGooglePlace = 'night_club'; 
 
-  mapView.initAutocomplete = function() {
+
+  function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -25,26 +31,28 @@ var APP = (function(app){
     autocomplete.addListener('place_changed', getAddress);
 
     //At first show San Diego Map
-    initMap(32.715738, -117.1610838);
+    initMap(selectedLocation);
 
   };
 
   function getAddress() {
     var place = autocomplete.getPlace().geometry.location;
-    console.log(place);
     console.log(place.lat(), place.lng());
-    initMap(place.lat(), place.lng());
-    // getPlaces(place.lat()+ "," + place.lng());
+    selectedLocation = {
+      lat: place.lat(),
+      lng: place.lng()
+    };
+    initMap();
 
 
 
   }
 
-  function initMap(lat, lng) {
+  function initMap() {
     app.map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: lat,
-        lng: lng
+        lat: selectedLocation.lat,
+        lng: selectedLocation.lng
       },
       zoom: 13,
       styles: [{
@@ -220,16 +228,17 @@ var APP = (function(app){
     // The idle event is a debounced event, so we can query & listen without
     // throwing too many requests at the server.
     app.map.addListener('idle', function () {
-      performSearch(lat, lng);
+      performSearch();
 
-      app.evenApiCaller(lat, lng);
+      app.evenApiCaller(selectedLocation.lat, selectedLocation.lng);
 
     });
   }
 
-  function performSearch(lat, lng) {
-
-    app.clearPlaceList();
+  function performSearch(type=selectedTypeForGooglePlace) {
+    //save type into selectedTypeForGooglePlace, this is prepareing for future performSearch function calls when map changes
+    selectedTypeForGooglePlace = type;
+    app.clearPlaceListAndMarkers();
     // var request = {
     //   bounds: map.getBounds(),
     //   radius: 10000,
@@ -237,9 +246,9 @@ var APP = (function(app){
     // };
     var request = {
       query: "best places",
-      location: new google.maps.LatLng(lat, lng),
+      location: new google.maps.LatLng(selectedLocation.lat, selectedLocation.lng),
       radius: 30000,
-      type: "museum"
+      type: type
     };
     // service.radarSearch(request, callback);
     // service.radarSearch(request, callback);
@@ -250,7 +259,7 @@ var APP = (function(app){
   function afterSearch(results, status) {
     console.log(results);
     var tenResults = results.slice(0, 10);
-    tenResults.forEach(function(place, idx) {
+    tenResults.forEach(function (place, idx) {
       const placeData = {
         name: place.name,
         address: place.formatted_address,
@@ -280,12 +289,16 @@ var APP = (function(app){
     // }
   }
 
-/** TODO:
- * 1. map center point
- * 2. getDetails
- * 3. when user click marker or media-object, modal function call
- *
- */
+  /** TODO:
+   * 1. map center point
+   * 2. getDetails
+   * 3. when user click marker or media-object, modal function call
+   *
+   */
+  app.placeAndEvents.initAutocomplete = initAutocomplete;
+  app.placeAndEvents.initMap = initMap;
+  app.placeAndEvents.performSearch = performSearch;
+
 
   return app;
 
