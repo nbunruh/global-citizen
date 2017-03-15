@@ -59,3 +59,10 @@ h3 {
 	height: 600px;
 	border: 1px solid #337ab7;
 }
+
+
+#innermodal1,#innermodal2,#innermodal3{
+	background-color: #cccccc;
+	padding: 5px;
+	margin: 5px;
+}
