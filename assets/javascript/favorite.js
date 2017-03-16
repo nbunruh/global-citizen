@@ -8,12 +8,13 @@ var APP = (function (app) {
   //add to favorite places
   function toggleFavoritePlace(starElement) {
     var placeId = $(starElement).data('place-id');
+    var placeName = $(starElement).data('place-name');
     if(app.user) {
       if($(starElement).hasClass('glyphicon-star-empty')) {
         //view update
         app.replaceClass(starElement, 'glyphicon-star-empty', 'glyphicon-star');
         //save this place_id to firebase
-        usersRef.child(app.user.uid + "/favorite_places/" + placeId).set(true);
+        usersRef.child(app.user.uid + "/favorite_places/" + placeId).set(placeName);
 
       } else { //remove from favorite places
         //view update

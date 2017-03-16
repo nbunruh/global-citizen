@@ -87,7 +87,7 @@ body { padding-top: 70px; }
 	display: block;
 }
 #user-name:hover {
-	cursor: text;
+	cursor: pointer;
 	color: #fff;
 }
 .glyphicon-star {

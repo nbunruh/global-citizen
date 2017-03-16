@@ -32,10 +32,10 @@ var APP = (function (app) {
       if(user) {
         if(app.user && user.uid === app.user.uid) return; // token refresh (user already logged in state)
         else {
-          signin(user);
+          return signin(user);
         }
       }
-      else signout();
+      else return signout();
     });
   }
 
@@ -44,7 +44,7 @@ var APP = (function (app) {
     app.user = {
       name: user.displayName,
       email: user.email,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL || 'assets/images/userDefault.png',
       accessToken: user.accessToken,
       emailVerified: user.emailVerified,
       uid: user.uid
