@@ -3,7 +3,6 @@ var APP = (function (app) {
   var markers = [];
 
   function renderPlaceList(place) {
-
     var starRating = $('<span>').rateYo({
       rating: place.rating,
       starWidth: "18px",
@@ -133,11 +132,34 @@ var APP = (function (app) {
     ];
     places.forEach(function (place) {
       var optionEl = $('<option>').val(place).text(place.charAt(0).toUpperCase() + place.slice(1));
-      if(place === 'night_club') optionEl.prop('selected', true);
+      if(place === 'park') optionEl.prop('selected', true);
       $('#place-select').append(optionEl);      
     });
     
   }
+
+  function renderUserUI(user) {
+    $('#openLoginModal').hide();
+    $('#sign-out').css({display: 'block'});
+    $('#user-photo').append(
+      $('<img id="user-thumbnail">').attr('src', user.photoURL ? user.photoURL : 'assets/images/defaultUser.png')
+    );
+    $('#user-name').text(user.name);
+    var loginModal = $('#login-modal');
+    loginModal.modal('hide');
+  }
+
+  function renderGuestUI() {
+    $('#openLoginModal').show();
+    $('#sign-out').hide();
+    $('#user-photo').empty();
+    $('#user-name').text('');
+  }
+
+
+
+  app.renderUserUI = renderUserUI;
+  app.renderGuestUI = renderGuestUI;
 
   app.initializeView = initializeView;
   app.renderPlaceList = renderPlaceList;

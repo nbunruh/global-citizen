@@ -16,7 +16,7 @@ var APP = (function (app) {
     lat: 32.715738,
     lng: -117.1610838
   };
-  var selectedTypeForGooglePlace = 'night_club'; 
+  var selectedTypeForGooglePlace = 'museum';
 
 
   function initAutocomplete() {
@@ -233,29 +233,29 @@ var APP = (function (app) {
     });
   }
 
-  function performSearch(type=selectedTypeForGooglePlace) {
+  function performSearch(type) {
     //save type into selectedTypeForGooglePlace, this is prepareing for future performSearch function calls when map changes
+    type = type || selectedTypeForGooglePlace;
     selectedTypeForGooglePlace = type;
     app.clearPlaceListAndMarkers();
-    // var request = {
-    //   bounds: map.getBounds(),
-    //   radius: 10000,
-    //     type: "museum"
-    // };
+
     var request = {
-      query: "best places",
       location: new google.maps.LatLng(selectedLocation.lat, selectedLocation.lng),
       radius: 30000,
-      type: type
+      type: type,
+      rankBy: google.maps.places.RankBy.PROMINENCE
     };
-    // service.radarSearch(request, callback);
-    // service.radarSearch(request, callback);
-    app.service.textSearch(request, afterSearch);
+    app.service.nearbySearch(request, afterSearch);
+    // app.service.textSearch(request, afterSearch);
 
   }
 
   function afterSearch(results, status) {
     console.log(results);
+    if (status !== google.maps.places.PlacesServiceStatus.OK) {
+      console.error(status);
+      return;
+    }
     var tenResults = results.slice(0, 10);
     tenResults.forEach(function (place, idx) {
       const placeData = {
@@ -278,13 +278,7 @@ var APP = (function (app) {
 
 
     });
-    // if (status !== google.maps.places.PlacesServiceStatus.OK) {
-    //   console.error(status);
-    //   return;
-    // }
-    // for (var i = 0, result; result = results[i]; i++) {
-    //   app.addMarker(result, map);
-    // }
+
   }
 
   /** TODO:

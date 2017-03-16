@@ -18,5 +18,9 @@ var APP = (function (app) {
     app.placeAndEvents.performSearch($(this).val());
   });
 
+  $('#sign-out').on('click', function () {
+    app.signout();
+  });
+
   return app;
 }(APP || {}));
