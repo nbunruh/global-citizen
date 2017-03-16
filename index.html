@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/3/w3.css">
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 					crossorigin="anonymous"></script>
@@ -20,6 +21,17 @@
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
+
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="navbar-brand" href="#"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></div>
+		</div>
+
 		<ul class="nav navbar-nav navbar-right">
 			<li ><a id="user-photo"></a></li>
 			<li ><a id="user-name"></a></li>
@@ -120,14 +132,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- Button trigger modal -->
-		<div class="row">
-			<div class="col-sm-12">
-				<button type="button" class="btn btn-primary" id="openModal" data-toggle="modal" data-target="#detailsModal">
-					Launch demo modal
-				</button>
-			</div>
-		</div>
 	</div>
 </div>
 <!--container closed-->
@@ -187,29 +191,17 @@
 
 
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8",
-    authDomain: "global-citizen.firebaseapp.com",
-    databaseURL: "https://global-citizen.firebaseio.com",
-    storageBucket: "global-citizen.appspot.com",
-    messagingSenderId: "367570053327"
-  };
-  firebase.initializeApp(config);
-</script>
-<script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8&libraries=places&callback=APP.placeAndEvents.initAutocomplete"
 				async defer></script>
-
-<script src="assets/javascript/auth.js"></script>
+<script src="assets/javascript/firebase-init.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
 <script src="assets/javascript/view.js"></script>
+<script src="assets/javascript/auth.js"></script>
 <script src="assets/javascript/rawevents.js"></script>
 <script src="assets/javascript/google-places-api.js"></script>
-<script src="assets/javascript/event.js"></script>
 <script src="assets/javascript/slideshow.js"></script>
-<script src="assets/javascript/app.js"></script>
+<script src="assets/javascript/favorite.js"></script>
+<script src="assets/javascript/main.js"></script>
 </body>
 
 </html>

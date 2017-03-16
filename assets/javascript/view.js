@@ -1,5 +1,6 @@
 var APP = (function (app) {
 
+  var database = app.database;
   var markers = [];
 
   function renderPlaceList(place) {
@@ -15,7 +16,7 @@ var APP = (function (app) {
         .append(
           $('<a href="#">')
           .append(
-            $('<img class="media-object">').attr('src', place.photo)
+            $('<img class="media-object">').attr('src', 'assets/images/default100.jpg')
           )
         )
       )
@@ -77,9 +78,22 @@ var APP = (function (app) {
         return;
       }
 
+      var starElement = $('<i class="glyphicon favorite glyphicon-star-empty">').data('place-id', placeId);
+      //check if user has saved this place as favorite before
+      if(app.user) {
+        database.ref('users/' + app.user.uid + '/favorite_places/' + placeId).once('value')
+          .then(function (placeSnap) {
+            //if user has saved before
+            if(placeSnap.exists()) app.replaceClass(starElement, 'glyphicon-star-empty', 'glyphicon-star');
+          })
+      }
+
       var detailsModal = $('#detailsModal');
+      //remove previous details info
+      detailsModal.find('.modal-body').empty();
+
       detailsModal.modal('show');
-      detailsModal.find('.modal-title').text(place.name);
+      detailsModal.find('.modal-title').text(place.name + ' ').append(starElement);
       detailsModal.find('.modal-body')
         .append(
           $('<p>').text('Address: ' + place.formatted_address)
@@ -156,15 +170,24 @@ var APP = (function (app) {
     $('#user-name').text('');
   }
 
+  function showLoginModal() {
+    $('#login-modal').modal('show');
+  }
+
+  function replaceClass(elem, oldClass, newClass) {
+    $(elem).removeClass(oldClass).addClass(newClass);
+  }
 
 
   app.renderUserUI = renderUserUI;
   app.renderGuestUI = renderGuestUI;
-
   app.initializeView = initializeView;
   app.renderPlaceList = renderPlaceList;
   app.addMarker = addMarker;
   app.clearPlaceListAndMarkers = clearPlaceListAndMarkers;
   app.showDetails = showDetails;
+  app.showLoginModal = showLoginModal;
+  app.replaceClass = replaceClass;
+
   return app;
 }(APP || {}));

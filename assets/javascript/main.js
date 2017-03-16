@@ -4,6 +4,9 @@ var APP = (function (app) {
   console.log(app);
   app.initializeView();
 
+
+
+  //Event Listen
   $('#location-form').on('submit', function(e) {
     e.preventDefault();
     return false;
@@ -20,6 +23,10 @@ var APP = (function (app) {
 
   $('#sign-out').on('click', function () {
     app.signout();
+  });
+
+  $('#detailsModal').on('click', '.favorite', function () {
+    app.toggleFavoritePlace(this);
   });
 
   return app;
