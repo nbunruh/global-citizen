@@ -1,5 +1,7 @@
 var APP = (function (app) {
 
+  var database = app.database;
+
   // FirebaseUI config.
   var uiConfig = {
     callbacks: {
@@ -20,13 +22,13 @@ var APP = (function (app) {
     tosUrl: 'https://global-citizen.firebaseapp.com'
   };
 
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  // The start method will wait until the DOM is loaded.
-  ui.start('#firebaseui-auth-container', uiConfig);
 
-
-  function initApp() {
+  function initFirebaseAuth() {
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
     firebase.auth().onAuthStateChanged(function(user) {
+
       if(user) {
         if(app.user && user.uid === app.user.uid) return; // token refresh (user already logged in state)
         else {
@@ -39,7 +41,6 @@ var APP = (function (app) {
 
   function signin(user) {
     // User is signed in.
-    console.log(user);
     app.user = {
       name: user.displayName,
       email: user.email,
@@ -51,6 +52,18 @@ var APP = (function (app) {
 
     //update view: user logged in
     app.renderUserUI(app.user);
+
+    //If this user is a new user, save user uid and name
+    database.ref('users/' + app.user.uid).once('value')
+      .then(function (userSnap) {
+        if(!userSnap.exists()) {
+          database.ref('users/' + app.user.uid).set({
+            name: app.user.name,
+            email: user.email
+          })
+        }
+      })
+
   }
 
   function signout() {
@@ -64,7 +77,7 @@ var APP = (function (app) {
 
   app.signout = signout;
 
-  initApp();
+  initFirebaseAuth();
 
   return app;
 
