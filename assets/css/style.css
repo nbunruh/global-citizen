@@ -24,7 +24,7 @@ img.mySlides {
 	margin-right: 5px !important;
 }
 
-.container {
+.container.main {
 	border: thin black solid;
 }
 
@@ -38,23 +38,6 @@ img.mySlides {
 	cursor: pointer;
 	color: #337ab7;
 }
-/*input[type=text] {*/
-    /*width: 200px;*/
-    /*box-sizing: border-box;*/
-    /*border: 2px solid #ccc;*/
-    /*border-radius: 4px;*/
-    /*font-size: 16px;*/
-    /*background-color: white;*/
-    /*background-position: 10px 10px; */
-    /*background-repeat: no-repeat;*/
-    /*padding: 12px 20px 12px 40px;*/
-    /*-webkit-transition: width 0.4s ease-in-out;*/
-    /*transition: width 0.4s ease-in-out;*/
-/*}*/
-
-/*input[type=text]:focus {*/
-    /*width: 70%;*/
-/*}*/
 
 input {
 	min-width: 300px;
@@ -76,4 +59,33 @@ h3 {
 	background-color: #cccccc;
 	padding: 5px;
 	margin: 5px;
+}
+.media-object {
+	max-width: 80px;
+}
+body { padding-top: 70px; }
+
+#openLoginModal:hover,
+#sign-out:hover {
+	cursor: pointer;
+}
+#sign-out {
+	display: none;
+}
+#user-photo {
+	padding: 0;
+	margin: 5px;
+}
+
+#user-thumbnail {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+#user-name {
+	display: block;
+}
+#user-name:hover {
+	cursor: text;
+	color: #fff;
 }
