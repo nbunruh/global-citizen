@@ -99,13 +99,13 @@ var APP = (function (app) {
           $('<p>').text('Address: ' + place.formatted_address)
         )
         .append(
-          $('<p>').text('review: ' + place.reviews[0].text)
+          $('<p>').text('Review: ' + place.reviews[0].text)
         )
         .append(
-          $('<p>').text('Phone#: ' + place.international_phone_number)
+          $('<p>').text('Phone Number: ' + place.international_phone_number)
         )
         .append(
-          $('<p>').text('Website URL: ' + place.url)
+          $('<p>').text('Website: ' + place.url)
         );
     });
   }

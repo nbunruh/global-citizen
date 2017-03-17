@@ -1,8 +1,6 @@
 body {
-	background-color: #193441;
 	color: white;
-	background-image: url("../images/bg-3.jpeg");
-	background-repeat: repeat;
+	background: #193441 url("/images/bg-3.jpeg") repeat;
 	padding-top: 70px;
 }
 
@@ -10,7 +8,7 @@ body {
 /* Classes */
 
 .glyphicon-globe {
-	font-size: 21px;
+	font-size: 20px;
 	color: #91AA9D;
 }
 
@@ -35,6 +33,7 @@ body {
 img.mySlides {
 	display: none;
 	filter: brightness(50%);
+	animation: 3s infinite;
 }
 
 .w3-left,
@@ -48,6 +47,7 @@ img.mySlides {
 	width: 13px;
 	padding: 5px !important;
 	margin-right: 5px !important;
+	display: none !important;
 }
 
 .container.main {
