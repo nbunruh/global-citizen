@@ -23,6 +23,10 @@
 	margin-right: 10px;
 }
 
+.place-title {
+	cursor: pointer;
+	color: #337ab7;
+}
 /*input[type=text] {*/
     /*width: 200px;*/
     /*box-sizing: border-box;*/
@@ -54,4 +58,11 @@ h3 {
 #map {
 	height: 600px;
 	border: 1px solid #337ab7;
+}
+
+
+#innermodal1,#innermodal2,#innermodal3{
+	background-color: #cccccc;
+	padding: 5px;
+	margin: 5px;
 }
