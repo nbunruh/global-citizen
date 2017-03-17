@@ -13,7 +13,7 @@ var APP = (function (app) {
   });
 
   $('#place-list').on('click', '.place-title', function () {
-    app.showDetails($(this).data('id'));
+    app.showDetails($(this).data('place-id'), $(this).data('place-name'));
   });
 
   $('#place-select').on('change', function() {
@@ -27,6 +27,10 @@ var APP = (function (app) {
 
   $('#detailsModal').on('click', '.favorite', function () {
     app.toggleFavoritePlace(this);
+  });
+
+  $('#user-name').on('click', function () {
+    app.showUserProfileModal();
   });
 
   return app;

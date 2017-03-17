@@ -23,7 +23,7 @@ var APP = (function (app) {
       .append(
         $('<div class="media-body">')
         .append(
-          $('<h4 class="media-heading place-title">').text(place.idx + 1 + ". " + place.name).data('id', place.place_id)
+          $('<h4 class="media-heading place-title">').text(place.idx + 1 + ". " + place.name).data('place-id', place.place_id).data('place-name', place.name)
         )
         .append(starRating)
         .append(
@@ -56,7 +56,7 @@ var APP = (function (app) {
         }
         infoWindow.setContent(result.name);
         infoWindow.open(app.map, marker);
-        showDetails(place.place_id);
+        showDetails(place.place_id, place.name);
       });
     });
   }
@@ -69,7 +69,7 @@ var APP = (function (app) {
 
   }
 
-  function showDetails(placeId) {
+  function showDetails(placeId, placeName) {
     app.service.getDetails({
       placeId: placeId
     }, function (place, status) {
@@ -78,7 +78,7 @@ var APP = (function (app) {
         return;
       }
 
-      var starElement = $('<i class="glyphicon favorite glyphicon-star-empty">').data('place-id', placeId);
+      var starElement = $('<i class="glyphicon favorite glyphicon-star-empty">').data('place-id', placeId).data('place-name', placeName);
       //check if user has saved this place as favorite before
       if(app.user) {
         database.ref('users/' + app.user.uid + '/favorite_places/' + placeId).once('value')
@@ -178,6 +178,35 @@ var APP = (function (app) {
     $(elem).removeClass(oldClass).addClass(newClass);
   }
 
+  function showUserProfileModal() {
+    var modal = $('#user-profile-modal');
+    var user = app.user;
+    $('#user-profile-modal').find('.modal-body')
+      .append($('<img>').attr('src', user.photoURL))
+      .append($('<p>').text('Name: ' + user.name))
+      .append($('<p>').text('Email: ' + user.email));
+    modal.modal('show');
+
+    database.ref('users/' + user.uid + '/favorite_places').once('value')
+      .then(function (placesSnap) {
+        var favoritePlaces = $('<div>');
+        favoritePlaces.append($('<h4>').text("Favorite Places"));
+        //if user has saved places
+        if(placesSnap.exists()) {
+          var places = placesSnap.val();
+          Object.keys(places).forEach(function (key, idx) {
+            var num = idx + 1;
+            favoritePlaces.append($('<p>').text(num + '. ' +places[key]));
+          });
+        } else { //if user doesn't have save places
+          favoritePlaces.append($('<p>').html("You don't have any saved place."));
+        }
+
+        $('#user-profile-modal').find('.modal-body')
+          .append(favoritePlaces);
+      });
+  }
+
 
   app.renderUserUI = renderUserUI;
   app.renderGuestUI = renderGuestUI;
@@ -188,6 +217,6 @@ var APP = (function (app) {
   app.showDetails = showDetails;
   app.showLoginModal = showLoginModal;
   app.replaceClass = replaceClass;
-
+  app.showUserProfileModal = showUserProfileModal;
   return app;
 }(APP || {}));
