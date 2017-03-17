@@ -1,11 +1,33 @@
+body {
+	background-color:#193441;
+	color:white;
+	background-image: url("../images/bg-3.jpeg");
+    background-repeat: repeat;
+}
+
+
 /* Classes */
 .glyphicon-globe {
 	font-size: 21px;
+	color:#91AA9D;
 }
 
 .glyphicon-search {
 	font-size: 10px;
 	padding-left: 5px;
+}
+
+.navbar {
+	background-color: #fc5303;
+}
+
+.glyphicon.globe-nav {
+    font-size: 12px !important;
+    color:white;
+}
+
+.glyph-nav {
+	color:white;
 }
 
 img.mySlides {
@@ -27,6 +49,7 @@ img.mySlides {
 
 .container.main {
 	border: thin black solid;
+	background-color:#193441;
 }
 
 /* ID's */
@@ -38,6 +61,31 @@ img.mySlides {
 .place-title {
 	cursor: pointer;
 	color: #337ab7;
+}
+
+.panel-green {
+	background-color: #3e606f;
+}
+
+.panel-heading {
+	background-color:#2a4a58;
+}
+
+.panel-title {
+	color:#bccfc5; 
+}
+
+.panel-primary{
+	background-color:#193441;
+}
+
+.media-heading {
+	color:white;
+}
+
+p.text-green {
+	color: #91AA9D;
+	line-height: 15px;
 }
 
 input {
