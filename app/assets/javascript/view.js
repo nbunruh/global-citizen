@@ -233,6 +233,14 @@ var APP = (function (app) {
 
     }
 
+    function showLoadingCircle () {
+      $('#loading-wrapper').css('display', 'block');
+    }
+
+    function hideLoadingCircle () {
+      $('#loading-wrapper').css('display', 'none');
+    }
+
   app.appendEventToView = appendEventToView;
   app.renderUserUI = renderUserUI;
   app.renderGuestUI = renderGuestUI;
@@ -244,5 +252,8 @@ var APP = (function (app) {
   app.showLoginModal = showLoginModal;
   app.replaceClass = replaceClass;
   app.showUserProfileModal = showUserProfileModal;
+  app.showLoadingCircle = showLoadingCircle
+  app.hideLoadingCircle = hideLoadingCircle;
+
   return app;
 }(APP || {}));

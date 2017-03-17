@@ -1,4 +1,3 @@
-
 var APP = (function (app) {
 
   var placeAndEvents = app.placeAndEvents = {};
@@ -234,6 +233,8 @@ var APP = (function (app) {
   }
 
   function performSearch(type) {
+    app.showLoadingCircle();
+
     //save type into selectedTypeForGooglePlace, this is prepareing for future performSearch function calls when map changes
     type = type || selectedTypeForGooglePlace;
     selectedTypeForGooglePlace = type;
@@ -275,6 +276,8 @@ var APP = (function (app) {
 
       app.renderPlaceList(placeData);
       app.addMarker(place, idx);
+      app.hideLoadingCircle();
+
 
 
     });
