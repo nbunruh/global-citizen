@@ -8,23 +8,20 @@
 
 var APP = function(app) {
     app.evenApiCaller = function(lat, lng) {
-        var queryURL = "http://eventful.com/json/events/search?";
+        var settings = {
+            // "async": true,
+            "crossDomain": true,
+            "url": "https://www.eventbriteapi.com/v3/events/search/?token=A3YIFUIZYR3KGGTZPZ2K",
+            "method": "GET",
+            "headers": {}
+        }
 
-        $.ajax({
-            method: "GET",
-            url: queryURL,
-            dataType: 'jsonp',
-            crossOrigin: true,
-            data: {
-                // q: 'Concerts',
-                location: lat + "," + lng,
-                api_key: '9p7B44XR8Qvc3jDK'
-            }
-
-        }).done(function (response) {
-            var data = response.events.tabular.events;
-            console.log(data);
-
+        $.ajax(settings).done(function (data) {
+            var evenHandler = data.events.splice(0,5);
+            evenHandler.forEach(function (event,index) {
+            console.log(" THIS IS THE DATA"+evenHandler);
+             app.appendEventToView(event)
+            });
 
 
         })

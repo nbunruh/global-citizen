@@ -64,12 +64,6 @@ h3 {
     display: inline;
 }
 
-
-#innermodal1,#innermodal2,#innermodal3{
-	background-color: #cccccc;
-	padding: 5px;
-	margin: 5px;
-}
 .media-object {
 	max-width: 80px;
 }
@@ -102,4 +96,10 @@ body { padding-top: 70px; }
 }
 .glyphicon-star {
 	color: #f39c12;
+}
+
+.innermodal{
+	background-color: #20315a;
+	padding: 5px;
+	margin: 5px;
 }
