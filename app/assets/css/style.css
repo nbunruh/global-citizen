@@ -1,15 +1,17 @@
 body {
-	background-color:#193441;
-	color:white;
+	background-color: #193441;
+	color: white;
 	background-image: url("../images/bg-3.jpeg");
-    background-repeat: repeat;
+	background-repeat: repeat;
+	padding-top: 70px;
 }
 
 
 /* Classes */
+
 .glyphicon-globe {
 	font-size: 21px;
-	color:#91AA9D;
+	color: #91AA9D;
 }
 
 .glyphicon-search {
@@ -22,35 +24,37 @@ body {
 }
 
 .glyphicon.globe-nav {
-    font-size: 12px !important;
-    color:white;
+	font-size: 12px !important;
+	color: white;
 }
 
 .glyph-nav {
-	color:white;
+	color: white;
 }
 
 img.mySlides {
-	display:none;
+	display: none;
 	filter: brightness(50%);
 }
 
-.w3-left, .w3-right, .w3-badge {
-	cursor:pointer
+.w3-left,
+.w3-right,
+.w3-badge {
+	cursor: pointer
 }
 
 .w3-badge {
-	height:13px;
-	width:13px;
+	height: 13px;
+	width: 13px;
 	padding: 5px !important;
 	margin-right: 5px !important;
 }
 
-
 .container.main {
 	border: thin black solid;
-	background-color:#193441;
+	background-color: #193441;
 }
+
 
 /* ID's */
 
@@ -68,19 +72,19 @@ img.mySlides {
 }
 
 .panel-heading {
-	background-color:#2a4a58;
+	background-color: #2a4a58;
 }
 
 .panel-title {
-	color:#bccfc5; 
+	color: #bccfc5;
 }
 
-.panel-primary{
-	background-color:#193441;
+.panel-primary {
+	background-color: #193441;
 }
 
 .media-heading {
-	color:white;
+	color: white;
 }
 
 p.text-green {
@@ -95,36 +99,39 @@ input {
 h3 {
 	text-align: center;
 }
+
 .map-wrapper {
 	height: 600px;
 }
+
 #map {
 	height: 600px;
 	border: 1px solid #337ab7;
 }
 
 #loc-input {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 300px;
-    z-index: 1;
-    display: inline;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 300px;
+	z-index: 1;
+	display: inline;
 }
 
 .media-object {
 	max-width: 80px;
 }
-body { padding-top: 70px; }
 
 #openLoginModal:hover,
 #sign-out:hover,
 .favorite:hover {
 	cursor: pointer;
 }
+
 #sign-out {
 	display: none;
 }
+
 #user-photo {
 	padding: 0;
 	margin: 5px;
@@ -135,30 +142,38 @@ body { padding-top: 70px; }
 	height: 50px;
 	border-radius: 50%;
 }
+
 #user-name {
 	display: block;
 }
+
 #user-name:hover {
 	cursor: pointer;
 	color: #fff;
 }
+
 .glyphicon-star {
 	color: #f39c12;
 }
+
 .modal-body .thumbnail {
 	border: none;
 }
+
 #favorite-places p {
 	margin-left: 20px;
 }
+
 #profile-info {
 	margin-top: 30px;
 	margin-left: 30px;
 }
+
 #profile-info h5 {
 	margin-bottom: 20px;
 }
-.innermodal{
+
+.innermodal {
 	background-color: #20315a;
 	padding: 5px;
 	margin: 5px;
