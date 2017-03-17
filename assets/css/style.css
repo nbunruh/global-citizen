@@ -1,11 +1,15 @@
 /* Classes */
 .glyphicon-globe {
-	font-size: 21px;
+	font-size: 19px;
 }
 
 .glyphicon-search {
 	font-size: 10px;
 	padding-left: 5px;
+}
+
+.glyphicon.globe-nav {
+	font-size: 12px !important;
 }
 
 img.mySlides {
