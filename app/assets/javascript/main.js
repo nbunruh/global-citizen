@@ -17,7 +17,6 @@ var APP = (function (app) {
   });
 
   $('#place-select').on('change', function() {
-    console.log($(this).val());
     app.placeAndEvents.performSearch($(this).val());
   });
 
