@@ -63,7 +63,7 @@ var APP = (function (app) {
 
   function clearPlaceListAndMarkers() {
     $('#place-list').empty();
-    markers.forEach(function(marker) {
+    markers.forEach(function (marker) {
       marker.setMap(null);
     });
 
@@ -77,17 +77,17 @@ var APP = (function (app) {
         console.error(status);
         return;
       }
+      console.log(place);
 
       var starElement = $('<i class="glyphicon favorite glyphicon-star-empty">').data('place-id', placeId).data('place-name', placeName);
       //check if user has saved this place as favorite before
-      if(app.user) {
+      if (app.user) {
         database.ref('users/' + app.user.uid + '/favorite_places/' + placeId).once('value')
           .then(function (placeSnap) {
             //if user has saved before
-            if(placeSnap.exists()) app.replaceClass(starElement, 'glyphicon-star-empty', 'glyphicon-star');
+            if (placeSnap.exists()) app.replaceClass(starElement, 'glyphicon-star-empty', 'glyphicon-star');
           })
       }
-
       var detailsModal = $('#detailsModal');
       //remove previous details info
       detailsModal.find('.modal-body').empty();
@@ -145,16 +145,19 @@ var APP = (function (app) {
       "zoo"
     ];
     places.forEach(function (place) {
-      var optionEl = $('<option>').val(place).text(place.charAt(0).toUpperCase() + place.slice(1));
-      if(place === 'park') optionEl.prop('selected', true);
-      $('#place-select').append(optionEl);      
+      var placeText = (place.charAt(0).toUpperCase() + place.slice(1)).replace('_', ' ');
+      var optionEl = $('<option>').val(place).text(placeText);
+      if (place === 'park') optionEl.prop('selected', true);
+      $('#place-select').append(optionEl);
     });
-    
+
   }
 
   function renderUserUI(user) {
     $('#openLoginModal').hide();
-    $('#sign-out').css({display: 'block'});
+    $('#sign-out').css({
+      display: 'block'
+    });
     $('#user-photo').append(
       $('<img id="user-thumbnail">').attr('src', user.photoURL ? user.photoURL : 'assets/images/defaultUser.png')
     );
@@ -181,29 +184,31 @@ var APP = (function (app) {
   function showUserProfileModal() {
     var modal = $('#user-profile-modal');
     var user = app.user;
-    $('#user-profile-modal').find('.modal-body')
-      .append($('<img>').attr('src', user.photoURL))
-      .append($('<p>').text('Name: ' + user.name))
-      .append($('<p>').text('Email: ' + user.email));
+    $('#profile-image').attr('src', user.photoURL);
+    $('#profile-name').text(user.name);
+    $('#profile-email').text(user.email);
+    // $('#user-profile-modal').find('.modal-body')
+    //   .append($('<p>').text('Email: ' + user.email));
     modal.modal('show');
+
+    var favoritePlaces = $('#favorite-places').empty();
+
 
     database.ref('users/' + user.uid + '/favorite_places').once('value')
       .then(function (placesSnap) {
-        var favoritePlaces = $('<div>');
-        favoritePlaces.append($('<h4>').text("Favorite Places"));
         //if user has saved places
-        if(placesSnap.exists()) {
+        if (placesSnap.exists()) {
           var places = placesSnap.val();
           Object.keys(places).forEach(function (key, idx) {
             var num = idx + 1;
-            favoritePlaces.append($('<p>').text(num + '. ' +places[key]));
+            favoritePlaces.append($('<p>').text(num + '. ' + places[key]));
           });
         } else { //if user doesn't have save places
-          favoritePlaces.append($('<p>').html("You don't have any saved place."));
+          favoritePlaces.append($('<p>').text("You don't have any saved place."));
         }
 
-        $('#user-profile-modal').find('.modal-body')
-          .append(favoritePlaces);
+        // $('#user-profile-modal').find('.modal-body')
+        //   .append(favoritePlaces);
       });
   }
 
