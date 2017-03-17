@@ -59,7 +59,7 @@ h3 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 220px;
+    top: 300px;
     z-index: 1;
     display: inline;
 }
