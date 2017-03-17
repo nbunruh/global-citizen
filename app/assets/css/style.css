@@ -24,6 +24,7 @@ img.mySlides {
 	margin-right: 5px !important;
 }
 
+
 .container.main {
 	border: thin black solid;
 }
@@ -54,12 +55,15 @@ h3 {
 	border: 1px solid #337ab7;
 }
 
-
-#innermodal1,#innermodal2,#innermodal3{
-	background-color: #cccccc;
-	padding: 5px;
-	margin: 5px;
+#loc-input {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 300px;
+    z-index: 1;
+    display: inline;
 }
+
 .media-object {
 	max-width: 80px;
 }
@@ -105,4 +109,9 @@ body { padding-top: 70px; }
 }
 #profile-info h5 {
 	margin-bottom: 20px;
+}
+.innermodal{
+	background-color: #20315a;
+	padding: 5px;
+	margin: 5px;
 }

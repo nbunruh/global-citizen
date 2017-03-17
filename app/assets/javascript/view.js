@@ -212,7 +212,28 @@ var APP = (function (app) {
       });
   }
 
+    function appendEventToView(place) {
 
+        var placeElemv = $('<li class=" innermodal" style="height: auto">');
+        var header = $("<h6 style='color: red;  text-align: center;font-size: 12px'>");
+        var body = $("<div style='background-color: white;padding: 5px ;font-size: 8px;overflow: auto'>");
+        var imgL = $("<img src='"+place.logo.original.url+"' width='200' height='100' style='float: left; margin-right:5px ;margin-bottom:5px'>");
+        var footer =$("<footer style='; color: white; text-align: center; font-size: 10px; margin: 5px;margin-left: 5px'> ");
+
+        header.append(place.name.text);
+        body.append(imgL);
+        body.append(place.description.text)
+        footer.append(place.start.local);
+
+        placeElemv.append(header)
+            .append(body)
+            .append(footer)
+
+        $('#event-list').append(placeElemv);
+
+    }
+
+  app.appendEventToView = appendEventToView;
   app.renderUserUI = renderUserUI;
   app.renderGuestUI = renderGuestUI;
   app.initializeView = initializeView;
