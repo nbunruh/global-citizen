@@ -1,0 +1,23 @@
+{
+  "name": "global-citizen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbunruh/global-citizen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nbunruh/global-citizen/issues"
+  },
+  "homepage": "https://github.com/nbunruh/global-citizen#readme",
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  }
+}

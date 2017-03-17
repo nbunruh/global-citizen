@@ -9,23 +9,67 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/3/w3.css">
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	  crossorigin="anonymous"></script>
+					crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
-	<script src="./assets/javascript/rawevents.js"></script>
 </head>
 
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
-		<h1 class="text-center"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></h1>
-		<div class="slideshow">
-			<!--CSS slideshow will go here-->
-			<h1>Slideshow</h1>
+
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-global-citizen" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="navbar-brand" href="#"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></div>
 		</div>
+		<div class="collapse navbar-collapse" id="navbar-global-citizen">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a id="user-photo"></a></li>
+				<li><a id="user-name"></a></li>
+				<li><a id="openLoginModal" data-toggle="modal" data-target="#login-modal">Sign in</a></li>
+				<li><a id="sign-out">Sign out</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container main">
+	<h1 class="text-center"><strong>Gl<span class="glyphicon glyphicon-globe"></span>bal Citizens</strong></h1>
+	<div>
+		<div class="w3-content w3-display-container" style="max-width:1200px">
+			<img class="mySlides" src="assets/images/peru.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/hawaii.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/kilimanjaro.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/guatemala.png" style="width:100%">
+			<img class="mySlides" src="assets/images/nyc.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/paris.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/san diego.jpg" style="width:100%">
+			<img class="mySlides" src="assets/images/rome.jpg" style="width:100%">
+			<div class="w3-center w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+				<div class="w3-left w3-padding-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+				<div class="w3-right w3-padding-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(5)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(6)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(7)"></span>
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(8)"></span>
+			</div>
+		</div>
+
 		<!-- location input -->
-		<div class="row">
+		<div class="row" id="loc-input">
 			<div class="col-sm-12">
 				<form id="location-form" class="form-inline text-center">
 					<div id="locationField" class="form-group">
@@ -47,20 +91,14 @@
 					</div>
 					<!--Website/Project description can go here-->
 					<div class="panel-body">
-						<p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-							quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
-							deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-							Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere
-							possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis
-							aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
-							rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
-							asperiores repellat."</p>
+						<p>As fun and exciting as travelling can be, it also takes us out of our comfort zones. We sometimes feel out of place and uncomfortable in our new surroundings upon arriving. With "Global Citizen," the whole world becomes our playground!</p>
+						<p>Utilizing the Eventbrite and Google Maps APIs tourists can now feel maneuver like a local. Get directions, grab a bite, or find some entertainment!</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="map-wrapper col-sm-12" style="height: 600px">
+			<div class="map-wrapper col-sm-12">
 				<div id="map"></div>
 			</div>
 		</div>
@@ -73,7 +111,7 @@
 				<div class="panel panel-primary">
 					<!-- Panel Heading for the retrieved places table -->
 					<div class="panel-heading">
-						<h3 class="panel-title"><strong><i class="fa fa-table"></i>    Google API Results (10 Results)</strong></h3>
+						<h3 class="panel-title"><strong><i class="glyphicon glyphicon-list-alt"></i> Places to visit  </strong></h3>
 					</div>
 					<!-- This main panel will hold each of the resulting places from Google Places API -->
 					<div class="panel-body" id="placeSection">
@@ -95,74 +133,90 @@
 				</div>
 			</div>
 		</div>
-		<!-- Button trigger modal -->
-		<div class="row">
-			<div class="col-sm-12">
+	</div>
+</div>
+<!--container closed-->
+<!-- Footer Icons and Links -->
+<div class="row">
+	<div class="col-sm-12">
+		<hr>
+		<h5 class="text-center">
+			<img src="assets/images/logo-instagram.jpg" width="40px" alt="Instagram">
+			<img src="assets/images/logo-fb.png" width="40px" alt="">
+			<img src="assets/images/logo-twitter.png" width="40px" alt="">
+			<img src="assets/images/logo-youtube.gif" width="40px" alt="">
+		</h5>
+		<p class="text-center">Follow Us:</p>
+		<p class="text-center">Powered by GC</p>
+	</div>
+</div>
 
-				<button type="button" class="btn btn-primary" id="openModal" data-toggle="modal" data-target="#detailsModal">
 
-				Launch demo modal
-			</button>
+
+<!-- Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailedInfoLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<!--<button type="button" class="btn btn-primary">Save changes</button>-->
 			</div>
 		</div>
 	</div>
-	<!--container closed-->
+</div>
 
-
-
-
-	<!-- Modal -->
-	<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailedInfoLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel"></h4>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<!--<button type="button" class="btn btn-primary">Save changes</button>-->
-				</div>
+<!--login modal-->
+<div class="modal fade" id="login-modal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">Sign in</h4>
+			</div>
+			<div class="modal-body">
+				<div id="firebaseui-auth-container"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<!-- Footer Icons and Links -->
-	<div class="row">
-		<div class="col-sm-12">
-			<hr>
-			<h5 class="text-center">
-				<img src="assets/images/logo-instagram.jpg" width="40px" alt="Instagram">
-				<img src="assets/images/logo-fb.png" width="40px" alt="">
-				<img src="assets/images/logo-twitter.png" width="40px" alt="">
-				<img src="assets/images/logo-youtube.gif" width="40px" alt="">
-			</h5>
-			<p class="text-center">Follow Us:</p>
-			<p class="text-center">Powered by GC</p>
+<!--user profile modal-->
+<div class="modal fade" id="user-profile-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">User profile</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
 		</div>
 	</div>
+</div>
 
-	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
-	<script>
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8",
-			authDomain: "global-citizen.firebaseapp.com",
-			databaseURL: "https://global-citizen.firebaseio.com",
-			storageBucket: "global-citizen.appspot.com",
-			messagingSenderId: "367570053327"
-		};
-		firebase.initializeApp(config);
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8&libraries=places&callback=APP.placeAndEvents.initAutocomplete"
-	  async defer></script>
-
-	<script src="assets/javascript/view.js"></script>
-	<script src="assets/javascript/rawevents.js"></script>
-	<script src="assets/javascript/google-places-api.js"></script>
-	<script src="assets/javascript/app.js"></script>
-	<script src="assets/javascript/event.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAumyYYmzpHea4zyErWSwq613w4nXp8rJ8&libraries=places&callback=APP.placeAndEvents.initAutocomplete"
+				async defer></script>
+<script src="assets/javascript/firebase-init.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+<script src="assets/javascript/view.js"></script>
+<script src="assets/javascript/auth.js"></script>
+<script src="assets/javascript/rawevents.js"></script>
+<script src="assets/javascript/google-places-api.js"></script>
+<script src="assets/javascript/slideshow.js"></script>
+<script src="assets/javascript/favorite.js"></script>
+<script src="assets/javascript/main.js"></script>
 </body>
 
 </html>

@@ -8,12 +8,24 @@
 	padding-left: 5px;
 }
 
-.slideshow {
-	background-color: lightgray;
-	text-align: center;
+img.mySlides {
+	display:none;
+	filter: brightness(50%);
 }
 
-.container {
+.w3-left, .w3-right, .w3-badge {
+	cursor:pointer
+}
+
+.w3-badge {
+	height:13px;
+	width:13px;
+	padding: 5px !important;
+	margin-right: 5px !important;
+}
+
+
+.container.main {
 	border: thin black solid;
 }
 
@@ -27,23 +39,6 @@
 	cursor: pointer;
 	color: #337ab7;
 }
-/*input[type=text] {*/
-    /*width: 200px;*/
-    /*box-sizing: border-box;*/
-    /*border: 2px solid #ccc;*/
-    /*border-radius: 4px;*/
-    /*font-size: 16px;*/
-    /*background-color: white;*/
-    /*background-position: 10px 10px; */
-    /*background-repeat: no-repeat;*/
-    /*padding: 12px 20px 12px 40px;*/
-    /*-webkit-transition: width 0.4s ease-in-out;*/
-    /*transition: width 0.4s ease-in-out;*/
-/*}*/
-
-/*input[type=text]:focus {*/
-    /*width: 70%;*/
-/*}*/
 
 input {
 	min-width: 300px;
@@ -60,9 +55,51 @@ h3 {
 	border: 1px solid #337ab7;
 }
 
+#loc-input {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 300px;
+    z-index: 1;
+    display: inline;
+}
+
 
 #innermodal1,#innermodal2,#innermodal3{
 	background-color: #cccccc;
 	padding: 5px;
 	margin: 5px;
+}
+.media-object {
+	max-width: 80px;
+}
+body { padding-top: 70px; }
+
+#openLoginModal:hover,
+#sign-out:hover,
+.favorite:hover {
+	cursor: pointer;
+}
+#sign-out {
+	display: none;
+}
+#user-photo {
+	padding: 0;
+	margin: 5px;
+}
+
+#user-thumbnail {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+#user-name {
+	display: block;
+}
+#user-name:hover {
+	cursor: pointer;
+	color: #fff;
+}
+.glyphicon-star {
+	color: #f39c12;
 }
