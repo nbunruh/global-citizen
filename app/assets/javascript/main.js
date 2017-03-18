@@ -21,10 +21,10 @@ var APP = (function (app) {
 
   //place list click event listen
   $('#place-list').on('click', '.place-title', function () {
-    app.showDetailsModal($(this).parents('li').data('place-id'), $(this).data('place-name'));
+    app.showDetailsModal($(this).parents('li').data('place-id'), $(this).parents('li').data('place-name'));
   });
   $('#place-list').on('click', '.media-object', function () {
-    app.showDetailsModal($(this).parents('li').data('place-id'), $(this).data('place-name'));
+    app.showDetailsModal($(this).parents('li').data('place-id'), $(this).parents('li').data('place-name'));
   });
 
   //sign in click

@@ -14,6 +14,7 @@ var APP = (function (app) {
         //view update
         app.replaceClass(starElement, 'glyphicon-star-empty', 'glyphicon-star');
         //save this place_id to firebase
+        console.log(placeName)
         usersRef.child(app.user.uid + "/favorite_places/" + placeId).set(placeName);
 
       } else { //remove from favorite places
