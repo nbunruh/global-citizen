@@ -225,5 +225,9 @@ h3 {
 	background-color: inherit;
 }
 #profile-image {
+	max-width: 200px;
 	border-radius: 50%;
+}
+.modal-body a {
+	color: yellow
 }

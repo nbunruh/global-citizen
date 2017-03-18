@@ -32,7 +32,10 @@ var APP = (function (app) {
           .append(starRating)
           .append($('<p>').text(place.formatted_address))
           .append($('<p>').text(place.formatted_phone_number ? 'Phone#: ' + place.formatted_phone_number: ''))
-          .append($('<p>').text(place.website ? 'Website URL: ' + place.website : ''))
+          .append(
+            $('<p>').text(place.website ? 'Website URL: ' : '')
+            .append($('<a>').attr('href', place.website).text(place.website).attr('target', '_blank'))
+          )
       );
 
     jqueryElemObj.append(placeElem);
@@ -126,7 +129,10 @@ var APP = (function (app) {
           $('<p>').text('Phone Number: ' + place.international_phone_number)
         )
         .append(
-          $('<p>').text('Website: ' + place.url)
+          $('<p>').text('Website: ')
+          .append(
+            $('<a>').attr('href', place.website).text(place.website).attr('target', '_blank')
+          )
         );
     });
   }
