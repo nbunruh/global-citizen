@@ -61,6 +61,7 @@ var APP = (function (app) {
         console.log(result);
         infoWindow.setContent('<span style="color: black">' + result.name + '</span>');
         infoWindow.open(app.map, marker);
+        console.log(place.name);
         showDetailsModal(place.place_id, place.name);
       });
     });
@@ -98,7 +99,6 @@ var APP = (function (app) {
         console.error(status);
         return;
       }
-      console.log(place);
 
       var starElement = $('<i class="glyphicon favorite glyphicon-star-empty">').data('place-id', placeId).data('place-name', placeName);
       //check if user has saved this place as favorite before
