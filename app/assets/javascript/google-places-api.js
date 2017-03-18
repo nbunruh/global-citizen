@@ -246,12 +246,15 @@ var APP = (function (app) {
       type: type,
       rankBy: google.maps.places.RankBy.PROMINENCE
     };
+
+    app.workingXMLRequestCounter++;
     app.service.nearbySearch(request, afterSearch);
     // app.service.textSearch(request, afterSearch);
 
   }
 
   function afterSearch(results, status) {
+    app.workingXMLRequestCounter--;
     console.log(results);
     if (status !== google.maps.places.PlacesServiceStatus.OK) {
       console.error(status);
@@ -273,7 +276,7 @@ var APP = (function (app) {
 
       app.renderPlaceCell(placeData, $('#place-list'));
       app.addMarker(place, idx);
-      app.hideLoadingCircle();
+      if(app.workingXMLRequestCounter === 0) app.hideLoadingCircle();
 
 
 

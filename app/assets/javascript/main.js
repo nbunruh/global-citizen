@@ -2,7 +2,7 @@ var APP = (function (app) {
 
   //initializeView
   app.initializeView();
-
+  app.workingXMLRequestCounter = 0;
 
   /**
    * Event Listen
