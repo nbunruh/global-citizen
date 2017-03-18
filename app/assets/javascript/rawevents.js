@@ -11,6 +11,7 @@ var APP = function(app) {
   var selectedLocation = {};
   var selectedCategory = 103;
   app.evenApiCaller = function(location, category) {
+    app.workingXMLRequestCounter++;
     app.showLoadingCircle();
     if(!location) location = selectedLocation;
     selectedLocation = location;
@@ -32,10 +33,11 @@ var APP = function(app) {
     $.ajax(settings).done(function (data) {
       var evenHandler = data.events.splice(0,10);
       console.log(evenHandler);
+      app.workingXMLRequestCounter--;
       $('#event-list').empty();
       evenHandler.forEach(function (event,index) {
         app.renderEventCell(event);
-        app.hideLoadingCircle();
+        if(app.workingXMLRequestCounter === 0) app.hideLoadingCircle();
       });
 
 
