@@ -160,12 +160,30 @@ h3 {
 
 #loc-input {
 	position: absolute;
-	left: 48%;
-	transform: translateX(-48%);
+	left: 50%;
+	transform: translateX(-50%);
 	top: 300px;
 	z-index: 1;
 	display: inline;
 }
+
+@media (max-width: 768px) {
+  #loc-input {
+    top: 170px;
+  }
+	#select-box select {
+	margin-bottom: 5px;
+	}
+}
+@media (max-width: 640px) {
+  #loc-input {
+    top: 150px;
+  }
+}
+#select-box {
+	margin-top: 10px;
+}
+
 
 #sign-in:hover,
 #sign-out:hover,
@@ -202,6 +220,7 @@ h3 {
 }
 
 #loading-wrapper {
+	z-index: 100;
 	display: none;
 	position: absolute;
 	left: 0;
@@ -230,4 +249,11 @@ h3 {
 }
 .modal-body a {
 	color: yellow
+}
+#firebaseui-auth-container input {
+	color: black;
+}
+
+#event-select, #place-select {
+	margin-top: 10px;
 }
