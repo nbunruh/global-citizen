@@ -3,35 +3,39 @@ var APP = (function (app) {
   var database = app.database;
   var markers = [];
 
-  function renderPlaceList(place) {
+  function renderPlaceCell(place, jqueryElemObj) {
     var starRating = $('<span>').rateYo({
       rating: place.rating,
       starWidth: "18px",
       readOnly: true
     });
 
-    var placeElem = $('<li class="media">')
+    var placeElem = $('<li class="media">').data('place-id', place.place_id).data('place-name', place.name)
       .append(
         $('<div class="media-left">')
-        .append(
-          $('<a href="#">')
           .append(
-            $('<img class="media-object">').attr('src', 'assets/images/default100.jpg')
+            $('<a >')
+              .append(
+                $('<img class="media-object">').attr('src', place.photos ? place.photos[0].getUrl({
+                    'maxWidth': 80,
+                    'maxHeight': 80
+                  }) : 'assets/images/default100.jpg')
+              )
           )
-        )
       )
       .append(
         $('<div class="media-body">')
-        .append(
-          $('<h4 class="media-heading place-title">').text(place.idx + 1 + ". " + place.name).data('place-id', place.place_id).data('place-name', place.name)
-        )
-        .append(starRating)
-        .append(
-          $('<p>').text(place.address)
-        )
+          .append(
+            $('<h4 class="media-heading place-title">').text(typeof place.idx === 'number' ? (place.idx + 1 + ". ") + place.name : place.name)
+            // $('<h4 class="media-heading place-title">').text(place.idx + 1 + ". " + place.name).data('place-id', place.place_id).data('place-name', place.name)
+          )
+          .append(starRating)
+          .append($('<p>').text(place.formatted_address))
+          .append($('<p>').text(place.formatted_phone_number ? 'Phone#: ' + place.formatted_phone_number: ''))
+          .append($('<p>').text(place.website ? 'Website URL: ' + place.website : ''))
       );
 
-    $('#place-list').append(placeElem);
+    jqueryElemObj.append(placeElem);
   }
 
   function addMarker(place, idx) {
@@ -54,9 +58,10 @@ var APP = (function (app) {
           console.error(status);
           return;
         }
-        infoWindow.setContent(result.name);
+        console.log(result);
+        infoWindow.setContent('<span style="color: black">' + result.name + '</span>');
         infoWindow.open(app.map, marker);
-        showDetails(place.place_id, place.name);
+        showDetailsModal(place.place_id, place.name);
       });
     });
   }
@@ -69,7 +74,23 @@ var APP = (function (app) {
 
   }
 
-  function showDetails(placeId, placeName) {
+  function formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return monthNames[monthIndex] + ' ' + day + ' ' + year;
+  }
+
+
+  function showDetailsModal(placeId, placeName) {
     app.service.getDetails({
       placeId: placeId
     }, function (place, status) {
@@ -151,10 +172,34 @@ var APP = (function (app) {
       $('#place-select').append(optionEl);
     });
 
+    var events = [
+      {id: 103, name: "Music"},
+      {id: 101, name: "Business"},
+      {id: 110, name: "Food & Drink"},
+      {id: 113, name: "Culture"},
+      {id: 105, name: "Arts"},
+      {id: 104, name: "Film & Media"},
+      {id: 108, name: "Sports & Fitness"},
+      {id: 107, name: "Health"},
+      {id: 102, name: "Science & Tech"},
+      {id: 109, name: "Travel & Outdoor"},
+      {id: 115, name: "Family & Education"},
+      {id: 116, name: "Holiday"},
+      {id: 106, name: "Fashion"},
+      {id: 119, name: "Hobbies"}
+    ];
+    events.forEach(function (event) {
+      var eventText = event.name;
+      var optionEl = $('<option>').val(event.id).text(eventText);
+      if (event.id === 103) optionEl.prop('selected', true); //Music
+      $('#event-select').append(optionEl);
+    });
+
   }
 
   function renderUserUI(user) {
-    $('#openLoginModal').hide();
+    hideLoginModal();
+    $('#sign-in').hide();
     $('#sign-out').css({
       display: 'block'
     });
@@ -162,12 +207,11 @@ var APP = (function (app) {
       $('<img id="user-thumbnail">').attr('src', user.photoURL ? user.photoURL : 'assets/images/defaultUser.png')
     );
     $('#user-name').text(user.name);
-    var loginModal = $('#login-modal');
-    loginModal.modal('hide');
+    hideLoadingCircle();
   }
 
   function renderGuestUI() {
-    $('#openLoginModal').show();
+    $('#sign-in').show();
     $('#sign-out').hide();
     $('#user-photo').empty();
     $('#user-name').text('');
@@ -175,6 +219,10 @@ var APP = (function (app) {
 
   function showLoginModal() {
     $('#login-modal').modal('show');
+  }
+
+  function hideLoginModal() {
+    $('#login-modal').modal('hide');
   }
 
   function replaceClass(elem, oldClass, newClass) {
@@ -187,24 +235,42 @@ var APP = (function (app) {
     $('#profile-image').attr('src', user.photoURL);
     $('#profile-name').text(user.name);
     $('#profile-email').text(user.email);
-    // $('#user-profile-modal').find('.modal-body')
-    //   .append($('<p>').text('Email: ' + user.email));
     modal.modal('show');
 
     var favoritePlaces = $('#favorite-places').empty();
-
 
     database.ref('users/' + user.uid + '/favorite_places').once('value')
       .then(function (placesSnap) {
         //if user has saved places
         if (placesSnap.exists()) {
           var places = placesSnap.val();
-          Object.keys(places).forEach(function (key, idx) {
-            var num = idx + 1;
-            favoritePlaces.append($('<p>').text(num + '. ' + places[key]));
+          Object.keys(places).forEach(function (key) {
+            var collapse = $('<div class="panel panel-green">')
+              .append(
+                $('<div class="panel-heading">')
+                  .append(
+                    $('<h5 class="panel-title place-title">').data('place-id', key)
+                      .append(
+                        $('<a class="collapsed" data-toggle="collapse" data-parent="#favorite-places">')
+                          .attr('href', '#' + key)
+                          .attr('aria-expanded', false)
+                          .attr('aria-controls', key)
+                          .text(places[key])
+                      )
+                  )
+              )
+              .append(
+                $('<div class="panel-collapse collapse">').attr('id', key)
+                  .append(
+                    $('<div class="panel-body">')
+                  )
+
+              );
+
+            favoritePlaces.append(collapse);
           });
         } else { //if user doesn't have save places
-          favoritePlaces.append($('<p>').text("You don't have any saved place."));
+          favoritePlaces.append($('<li>').text("You don't have any saved place."));
         }
 
         // $('#user-profile-modal').find('.modal-body')
@@ -212,48 +278,96 @@ var APP = (function (app) {
       });
   }
 
-    function appendEventToView(place) {
+  function appendEventToView(place) {
 
-        var placeElemv = $('<li class=" innermodal" style="height: auto">');
-        var header = $("<h6 style='color: red;  text-align: center;font-size: 12px'>");
-        var body = $("<div style='background-color: white;padding: 5px ;font-size: 8px;overflow: auto'>");
-        var imgL = $("<img src='"+place.logo.original.url+"' width='200' height='100' style='float: left; margin-right:5px ;margin-bottom:5px'>");
-        var footer =$("<footer style='; color: white; text-align: center; font-size: 10px; margin: 5px;margin-left: 5px'> ");
+    var placeElemv = $('<li class=" innermodal" style="height: auto">');
+    var header = $("<h6 style='color: red;  text-align: center;font-size: 12px'>");
+    var body = $("<div style='background-color: white;padding: 5px ;font-size: 8px;overflow: auto'>");
+    var imgL = $("<img src='"+place.logo.original.url+"' width='200' height='100' style='float: left; margin-right:5px ;margin-bottom:5px'>");
+    var footer =$("<footer style='; color: white; text-align: center; font-size: 10px; margin: 5px;margin-left: 5px'> ");
 
-        header.append(place.name.text);
-        body.append(imgL);
-        body.append(place.description.text)
-        footer.append(place.start.local);
+    header.append(place.name.text);
+    body.append(imgL);
+    body.append(place.description.text)
+    footer.append(place.start.local);
 
-        placeElemv.append(header)
-            .append(body)
-            .append(footer)
+    placeElemv.append(header)
+      .append(body)
+      .append(footer)
 
-        $('#event-list').append(placeElemv);
+    $('#event-list').append(placeElemv);
 
-    }
+  }
 
-    function showLoadingCircle () {
-      $('#loading-wrapper').css('display', 'block');
-    }
+  function renderEventCell(event) {
+    var imgEl = $('<img class="media-object">')
+      .attr('src', event.logo ? event.logo.original.url : 'assets/images/default100.jpg');
+    var anchorEl = $('<a>');
+    var mediaLeft = $('<div class="media-left">');
 
-    function hideLoadingCircle () {
-      $('#loading-wrapper').css('display', 'none');
-    }
+    anchorEl.append(imgEl);
+    mediaLeft.append(anchorEl);
+
+
+    var mediaBody = $('<div class="media-body">');
+    var titleEl = $('<h5 class="media-heading place-title">').text(event.name.text);
+    var descEl = $('<p>').text(formatDate(new Date(event.start.utc)));
+
+    mediaBody.append(titleEl).append(descEl);
+
+    var eventElem = $('<li class="media">');
+
+    eventElem.append(mediaLeft).append(mediaBody);
+
+    $('#event-list').append(eventElem);
+
+
+  }
+
+  function renderExpandedPlaceDetails(placeId) {
+    app.service.getDetails({
+      placeId: placeId
+    }, function (place, status) {
+      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        console.error(status);
+        return;
+      }
+      //add place information to expanded panel body
+      var panelBodyEl = $('#' + placeId).find('.panel-body').empty();
+      var starRatingEl = $('<span>').rateYo({
+        rating: place.rating,
+        starWidth: "18px",
+        readOnly: true
+      });
+      renderPlaceCell(place, panelBodyEl);
+
+    });
+  }
+
+
+  function showLoadingCircle () {
+    $('#loading-wrapper').css('display', 'block');
+  }
+
+  function hideLoadingCircle () {
+    $('#loading-wrapper').css('display', 'none');
+  }
 
   app.appendEventToView = appendEventToView;
   app.renderUserUI = renderUserUI;
   app.renderGuestUI = renderGuestUI;
   app.initializeView = initializeView;
-  app.renderPlaceList = renderPlaceList;
+  app.renderPlaceCell = renderPlaceCell;
   app.addMarker = addMarker;
   app.clearPlaceListAndMarkers = clearPlaceListAndMarkers;
-  app.showDetails = showDetails;
+  app.showDetailsModal = showDetailsModal;
   app.showLoginModal = showLoginModal;
+  app.hideLoginModal = hideLoginModal;
   app.replaceClass = replaceClass;
   app.showUserProfileModal = showUserProfileModal;
-  app.showLoadingCircle = showLoadingCircle
+  app.renderExpandedPlaceDetails = renderExpandedPlaceDetails;
+  app.showLoadingCircle = showLoadingCircle;
   app.hideLoadingCircle = hideLoadingCircle;
-
+  app.renderEventCell = renderEventCell;
   return app;
 }(APP || {}));
