@@ -15,7 +15,7 @@ var APP = (function (app) {
     lat: 32.715738,
     lng: -117.1610838
   };
-  var selectedTypeForGooglePlace = 'museum';
+  var selectedTypeForGooglePlace = 'park';
 
 
   function initAutocomplete() {
@@ -33,7 +33,7 @@ var APP = (function (app) {
     //At first show San Diego Map
     initMap(selectedLocation);
 
-  };
+  }
 
   function getAddress() {
     var place = autocomplete.getPlace().geometry.location;
@@ -53,11 +53,11 @@ var APP = (function (app) {
       },
       zoom: 13,
       styles: [{
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#ebe3cd"
-          }]
-        },
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#ebe3cd"
+        }]
+      },
         {
           "elementType": "labels.text.fill",
           "stylers": [{
@@ -227,7 +227,7 @@ var APP = (function (app) {
     app.map.addListener('idle', function () {
       performSearch();
 
-      app.evenApiCaller(selectedLocation.lat, selectedLocation.lng);
+      app.evenApiCaller(selectedLocation);
 
     });
   }
@@ -246,12 +246,15 @@ var APP = (function (app) {
       type: type,
       rankBy: google.maps.places.RankBy.PROMINENCE
     };
+
+    app.workingXMLRequestCounter++;
     app.service.nearbySearch(request, afterSearch);
     // app.service.textSearch(request, afterSearch);
 
   }
 
   function afterSearch(results, status) {
+    app.workingXMLRequestCounter--;
     console.log(results);
     if (status !== google.maps.places.PlacesServiceStatus.OK) {
       console.error(status);
@@ -262,10 +265,7 @@ var APP = (function (app) {
       const placeData = {
         name: place.name,
         address: place.formatted_address,
-        photo: place.photos ? place.photos[0].getUrl({
-          'maxWidth': 80,
-          'maxHeight': 80
-        }) : 'assets/images/default100.jpg',
+        photos: place.photos ? place.photos : null,
         rating: place.rating,
         // opening_hours: place.opening_hours,
         icon: place.icon,
@@ -274,15 +274,17 @@ var APP = (function (app) {
         idx: idx
       };
 
-      app.renderPlaceList(placeData);
+      app.renderPlaceCell(placeData, $('#place-list'));
       app.addMarker(place, idx);
-      app.hideLoadingCircle();
+      if(app.workingXMLRequestCounter === 0) app.hideLoadingCircle();
 
 
 
     });
 
   }
+
+
 
   /** TODO:
    * 1. map center point

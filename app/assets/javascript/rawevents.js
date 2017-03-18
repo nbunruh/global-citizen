@@ -7,27 +7,44 @@
 // }
 
 var APP = function(app) {
-    app.evenApiCaller = function(lat, lng) {
-        var settings = {
-            // "async": true,
-            "crossDomain": true,
-            "url": "https://www.eventbriteapi.com/v3/events/search/?token=A3YIFUIZYR3KGGTZPZ2K",
-            "method": "GET",
-            "headers": {}
-        }
 
-        $.ajax(settings).done(function (data) {
-            var evenHandler = data.events.splice(0,5);
-            evenHandler.forEach(function (event,index) {
-            console.log(" THIS IS THE DATA"+evenHandler);
-             app.appendEventToView(event)
-            });
-
-
-        })
+  var selectedLocation = {};
+  var selectedCategory = 103;
+  app.evenApiCaller = function(location, category) {
+    app.workingXMLRequestCounter++;
+    app.showLoadingCircle();
+    if(!location) location = selectedLocation;
+    selectedLocation = location;
+    if(!category) category = selectedCategory;
+    selectedCategory = category;
+    var settings = {
+      // "async": true,
+      "crossDomain": true,
+      "url": "https://www.eventbriteapi.com/v3/events/search/?token=A3YIFUIZYR3KGGTZPZ2K",
+      "method": "GET",
+      "headers": {},
+      data: {
+        'location.latitude': location.lat,
+        'location.longitude': location.lng,
+        categories: category
+      }
     };
 
-    return app;
+    $.ajax(settings).done(function (data) {
+      var evenHandler = data.events.splice(0,10);
+      console.log(evenHandler);
+      app.workingXMLRequestCounter--;
+      $('#event-list').empty();
+      evenHandler.forEach(function (event,index) {
+        app.renderEventCell(event);
+        if(app.workingXMLRequestCounter === 0) app.hideLoadingCircle();
+      });
+
+
+    })
+  };
+
+  return app;
 
 
 

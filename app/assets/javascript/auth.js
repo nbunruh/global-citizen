@@ -6,7 +6,7 @@ var APP = (function (app) {
   var uiConfig = {
     callbacks: {
       // Called when the user has been successfully signed in.
-      signInSuccess: function(user, credential) {
+      signInSuccess: function(user) {
         signin(user);
         return false; //no redirect
       }
@@ -21,12 +21,13 @@ var APP = (function (app) {
     // Terms of service url.
     tosUrl: 'https://global-citizen.firebaseapp.com'
   };
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  // The start method will wait until the DOM is loaded.
+  ui.start('#firebaseui-auth-container', uiConfig);
 
 
   function initFirebaseAuth() {
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+
     firebase.auth().onAuthStateChanged(function(user) {
 
       if(user) {
@@ -69,6 +70,10 @@ var APP = (function (app) {
   function signout() {
     firebase.auth().signOut()
       .then(function () {
+
+        //re-render firebase auth UI
+        ui.reset();
+        ui.start('#firebaseui-auth-container', uiConfig);
         app.user = null;
         app.renderGuestUI();
       })
