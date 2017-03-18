@@ -80,8 +80,10 @@
 							<label class="sr-only" for="autocomplete">location</label>
 							<input type="text" class="form-control" id="autocomplete" placeholder="Enter a location" value="San Diego, CA, United States">
 						</div>
-						<select id="place-select" class="form-control"></select>
-						<select id="event-select" class="form-control"></select>
+						<!--<div id="select-box">
+							<select id="place-select" class="form-control"></select>
+							<select id="event-select" class="form-control"></select>
+						</div>-->
 					</form>
 
 				</div>
@@ -97,7 +99,8 @@
 						<div class="panel-body">
 							<p>As fun and exciting as travelling can be, it also takes us out of our comfort zones. We sometimes feel out of place
 								and uncomfortable in our new surroundings upon arriving. But with "Global Citizen," the whole world becomes our playground!</p>
-							<p>Utilizing the Eventbrite and Google Maps APIs, tourists can now maneuver around any destination like a local. Get directions, grab a bite, or find something to do!</p>
+							<p>Utilizing the Eventbrite and Google Maps APIs, tourists can now maneuver around any destination like a local. Get
+								directions, grab a bite, or find something to do!</p>
 						</div>
 					</div>
 				</div>
@@ -116,7 +119,12 @@
 					<div class="panel panel-green">
 						<!-- Panel Heading for the retrieved places table -->
 						<div class="panel-heading">
-							<h3 class="panel-title"><strong><i class="glyphicon glyphicon-list-alt"></i> Places to visit  </strong></h3>
+							<h3 class="panel-title">
+								<strong><i class="glyphicon glyphicon-list-alt"></i> Places to visit  </strong>
+								<form onsubmit="return false;" class="form-inline text-center">
+										<select id="place-select" class="form-control"></select>
+								</form>
+							</h3>
 						</div>
 						<!-- This main panel will hold each of the resulting places from Google Places API -->
 						<div class="panel-body" id="placeSection">
@@ -129,7 +137,11 @@
 					<div class="panel panel-green">
 						<!-- Panel Heading for the retrieved places table -->
 						<div class="panel-heading">
-							<h3 class="panel-title"><strong><i class="glyphicon glyphicon-list"></i></strong> Events</h3>
+							<h3 class="panel-title">
+								<strong><i class="glyphicon glyphicon-list"></i></strong> Events</h3>
+								<form onsubmit="return false;" class="form-inline text-center">
+										<select id="event-select" class="form-control"></select>
+								</form>
 						</div>
 						<!-- This main panel will hold each of the resulting places from Google Places API -->
 						<div class="panel-body" id="eventSection">
@@ -152,34 +164,34 @@
 				<a href="http://twitter.com/"><img class="social-media" src="assets/images/logo-twitter.png" width="48" alt="Twitter - Global Citizens"></a>
 				<a href="http://youtube.com/"><img class="social-media" src="assets/images/logo-youtube.png" width="51px" alt="Youtube - Global Citizens"></a>
 			</h5>
-				<p class="text-center text-green h6">Powered by GC</p>
+			<p class="text-center text-green h6">Powered by GC</p>
 		</div>
 	</div>
 
 
 
-<!-- Details Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailedInfoLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"></h4>
-			</div>
-			<div class="modal-body">
-				<ul class="list-group">
-				  <li class="list-group-item" id="address"></li>
-				  <li class="list-group-item" id="reviews"></li>
-				  <li class="list-group-item" id="phone-number"></li>
-				  <li class="list-group-item" id="website-url"></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<!-- Details Modal -->
+	<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailedInfoLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<ul class="list-group">
+						<li class="list-group-item" id="address"></li>
+						<li class="list-group-item" id="reviews"></li>
+						<li class="list-group-item" id="phone-number"></li>
+						<li class="list-group-item" id="website-url"></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 	<!--login modal-->
 	<div class="modal fade" id="login-modal">
@@ -220,7 +232,9 @@
 								<li><span class="icon glyphicon glyphicon-user"></span><label>Name</label><span id="profile-name"></span></li>
 								<li><span class="icon glyphicon glyphicon-envelope"></span><label>Email</label><span id="profile-email"></span></li>
 								<li><span class="icon glyphicon glyphicon-map-marker"></span><label>Favorite Places</label><span></span></li>
-								<li><div id="favorite-places" class="panel-group" aria-multiselectable="true"></div></li>
+								<li>
+									<div id="favorite-places" class="panel-group" aria-multiselectable="true"></div>
+								</li>
 							</ul>
 						</div>
 					</div>
