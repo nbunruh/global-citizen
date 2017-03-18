@@ -112,8 +112,8 @@ h3 {
 
 #loc-input {
 	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	left: 48%;
+	transform: translateX(-48%);
 	top: 300px;
 	z-index: 1;
 	display: inline;
