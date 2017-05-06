@@ -1,7 +1,7 @@
 # Global Citizen
 Travel app
 
-[Firebase app](https://global-citizen.firebaseapp.com)  
+[Firebase app](https://global-citizens.firebaseapp.com/)  
 ## Running app
 ```bash
 #clone the repo
